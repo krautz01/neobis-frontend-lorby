@@ -1,12 +1,11 @@
 import styles from "./RegistrationPage.module.css";
-import { Formik, Field, Form, FormikHelpers } from "formik";
+import { Formik, Field, Form } from "formik";
 import { Link } from "react-router-dom";
 import BackButtonImage from "../../assets/images/BackButtonImage.svg";
 import styled from "styled-components";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 import LorbyGreeting from "../../components/LorbyGreeting/LorbyGreeting";
 import { registerAPI } from "../../api/api";
+import { useMemo, useState } from "react";
 
 const BackButton = styled.button`
   background: #ffffff;
@@ -22,20 +21,6 @@ const BackButton = styled.button`
 `;
 
 export default function RegistrationPage() {
-  const validationSchema = Yup.object({
-    email: Yup.string().email("Invalid email address").required("Required"),
-    login: Yup.string().required("Required"),
-    password: Yup.string()
-      .max(15, "Max 15") // name of error
-      .min(8, "Min 8")
-      .matches(/[a-z]/, "Have lowercase")
-      .matches(/[A-Z]/, "Have uppercase")
-      .matches(/\d/, "Have number")
-      .matches(/[!@#$%^&*()_=+-]/, "Have unique symbols")
-      .matches(/^[aA-zZ\d!@#$%^&*()_=+-]+$/, "")
-      .required("Required"),
-  });
-
   interface IRegisterForm {
     email: string;
     username: string;
@@ -50,75 +35,119 @@ export default function RegistrationPage() {
     confirmPassword: "",
   };
 
-  const formik = useFormik({
-    initialValues: initialValues, // this is formik.values
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-      registerAPI(values); // post request to API
-    },
+  interface IValid {
+    validLength: boolean;
+    containsLetter: boolean;
+    containsNumber: boolean;
+    containsSymbol: boolean;
+  }
+
+  const [passwordValid, setPasswordValid] = useState<IValid>({
+    validLength: false,
+    containsLetter: false,
+    containsNumber: false,
+    containsSymbol: false,
   });
+
+  const validatePassword = useMemo(() => {
+    return (password: string) => {
+      return {
+        validLength: password.length >= 8 && password.length <= 15,
+        containsLetter: /^(?=.*[a-z])(?=.*[A-Z])/.test(password),
+        containsNumber: /\d/.test(password),
+        containsSymbol: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+      };
+    };
+  }, []);
 
   return (
     <>
       <LorbyGreeting />
-      <div className={styles.registrPage}>
+      <div className={styles.registerBlock}>
         <Link to={"/"}>
           <BackButton>
-            <img src={BackButtonImage} alt="" /> Назад
+            <img src={BackButtonImage} alt="<" /> Назад
           </BackButton>
         </Link>
-        <div className={styles.registrPage_form_block}>
-          <h2>
-            Создать аккаунт <br /> Lorby
-          </h2>
-          <form onSubmit={formik.handleSubmit}>
-            <input
-              id="email"
-              name="email"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.email}
-              placeholder="Введите адрес почты"
-            />
-            <input
-              id="username"
-              name="username"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.username}
-              placeholder="Придумай логин"
-            />
-            <input
-              id="password"
-              name="password"
-              type="password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-              placeholder="Создай пароль"
-            />
-            {/* {formik.touched.password && formik.errors.password ? (
-              <li style={{ color: "green" }}>От 8 до 15 символов ✅</li>
-            ) : (
-              <li style={{ color: "red" }}>От 8 до 15 символов ❌</li>
-            )} */}
-            <ul className={styles.password_requirements_list}>
-              <li>От 8 до 15 символов</li>
-              <li>Строчные и прописные буквы</li>
-              <li>Минимум 1 цифра</li>
-              <li>Минимум 1 спецсимвол (!, ", #, $...)</li>
-            </ul>
-            <input
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              onChange={formik.handleChange}
-              value={formik.values.confirmPassword}
-              placeholder="Повтори пароль"
-            />
-            <button type="submit">Далее</button>
-          </form>
-        </div>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={(values) => {
+            console.log(values);
+            /* registerAPI(values); // post request to API */
+            localStorage.setItem("email", values.email);
+          }}
+        >
+          {({ values }) => (
+            <Form
+              onChange={() => {
+                setPasswordValid(validatePassword(values.password));
+              }}
+            >
+              <h2>
+                Создать аккаунт <br /> Lorby
+              </h2>
+              <Field
+                type="email"
+                name="email"
+                placeholder="Введи адрес почты"
+              />
+              <Field type="text" name="username" placeholder="Придумай логин" />
+              <Field
+                type="password"
+                name="password"
+                placeholder="Создай пароль"
+              />
+              {values.password ? (
+                <ul>
+                  <li
+                    style={{
+                      color: passwordValid.validLength ? "green" : "red",
+                    }}
+                  >
+                    От 8 до 15 символов{" "}
+                    {passwordValid.validLength ? "✅" : "❌"}
+                  </li>
+                  <li
+                    style={{
+                      color: passwordValid.containsLetter ? "green" : "red",
+                    }}
+                  >
+                    Строчные и прописные буквы{" "}
+                    {passwordValid.containsLetter ? "✅" : "❌"}
+                  </li>
+                  <li
+                    style={{
+                      color: passwordValid.containsNumber ? "green" : "red",
+                    }}
+                  >
+                    Минимум 1 цифра {passwordValid.containsNumber ? "✅" : "❌"}
+                  </li>
+                  <li
+                    style={{
+                      color: passwordValid.containsSymbol ? "green" : "red",
+                    }}
+                  >
+                    Минимум 1 спецсимвол (!, ", #, $...){" "}
+                    {passwordValid.containsSymbol ? "✅" : "❌"}
+                  </li>
+                </ul>
+              ) : (
+                <ul>
+                  <li>От 8 до 15 символов</li>
+                  <li>Строчные и прописные буквы</li>
+                  <li>Минимум 1 цифра</li>
+                  <li>Минимум 1 спецсимвол (!, ", #, $...)</li>
+                </ul>
+              )}
+              <Field
+                type="password"
+                name="confirmPassword"
+                placeholder="Повтори пароль"
+              />
+              <button type="submit">Отправить</button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </>
   );
