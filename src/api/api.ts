@@ -59,8 +59,6 @@ const userProfileAPI = (accessToken: string) => {
   });
 };
 
-// in localStoreage gibt es acces and refresh
-
 /* const forGotPassword = (emailOrUserName: string) => {
   const data = {
     emailOrUsername: emailOrUserName,

@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import AuthorizationPage from "./pages/AuthorizationPage/AuthorizationPage";
+import LogInPage from "./pages/LogInPage/LogInPage";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import { useAppSelector } from "./redux/hooks";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -16,7 +16,7 @@ function App() {
         </Routes>
       ) : (
         <Routes>
-          <Route path={"/"} element={<AuthorizationPage />} />
+          <Route path={"/"} element={<LogInPage />} />
           <Route path={"/register"} element={<RegistrationPage />} />
           <Route path={"/resend-email"} element={<ResendPassPage />} />
           <Route />
