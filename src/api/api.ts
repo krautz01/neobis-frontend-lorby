@@ -31,9 +31,8 @@ const logInAPI = (data: ILogIn): Promise<AxiosResponse> => {
 };
 
 /* const reSendEmail = (email: string) => {
-  const data = {
-    email,
-  };
+  email
+
   return instance.post("/resend-email", data);
 }; */
 
@@ -44,12 +43,12 @@ const refreshTokenAPI = (refreshToken: string) => {
   return instance.post("/refresh-token", data);
 };
 
-const accessTokenAPI = (accessToken: string) => {
+/* const accessTokenAPI = (accessToken: string) => {
   const data = {
     accessToken,
   };
   return instance.post("/access-token", data);
-};
+}; */
 
 const userProfileAPI = (accessToken: string) => {
   return instance.get("/userprofile", {
@@ -61,7 +60,7 @@ const userProfileAPI = (accessToken: string) => {
 
 /* const forGotPassword = (emailOrUserName: string) => {
   const data = {
-    emailOrUsername: emailOrUserName,
+    emailOrUserName,
   };
   return instance.put("/forgot-password", data);
 }; */

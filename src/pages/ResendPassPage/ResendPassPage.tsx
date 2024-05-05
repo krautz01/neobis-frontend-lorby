@@ -2,7 +2,6 @@ import styles from "./ResendPassPage.module.css";
 import LorbyGreeting from "../../components/LorbyGreeting/LorbyGreeting";
 import ResendModalWindow from "../../components/ResendModalWindow/ResendModalWindow";
 import { useState } from "react";
-import { boolean } from "yup";
 
 export default function ResendPassPage() {
   const [modalIsActiv, setModalIsActive] = useState<boolean>(false);
@@ -25,7 +24,9 @@ export default function ResendPassPage() {
           </button>
         </div>
       </div>
-      {modalIsActiv && <ResendModalWindow setModalIsActive={setModalIsActive} />}
+      {modalIsActiv && (
+        <ResendModalWindow setModalIsActive={setModalIsActive} />
+      )}
     </div>
   );
 }

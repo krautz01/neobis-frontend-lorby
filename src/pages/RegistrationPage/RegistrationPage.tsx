@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import BackButtonImage from "../../assets/images/BackButtonImage.svg";
 import styled from "styled-components";
 import LorbyGreeting from "../../components/LorbyGreeting/LorbyGreeting";
-import { registerAPI } from "../../api/api";
+/* import { registerAPI } from "../../api/api"; */
 import { useMemo, useState } from "react";
 
 const BackButton = styled.button`

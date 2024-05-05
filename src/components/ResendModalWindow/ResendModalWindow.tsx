@@ -14,7 +14,8 @@ const ResendModalWindow: React.FC<IResendModalWindow> = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div>
-          Мы выслали еще одно письмо на указанную тобой почту {localStorage.getItem("email")}
+          Мы выслали еще одно письмо на указанную тобой почту{" "}
+          {localStorage.getItem("email")}
         </div>
         <div>Не забудь проверить ящик “Спам”!11!!!!</div>
         <button>Понятно!!1!</button>
