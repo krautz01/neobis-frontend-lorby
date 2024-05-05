@@ -2,7 +2,7 @@ import { Formik, Field, Form } from "formik";
 import { Link } from "react-router-dom";
 import styles from "./LogInPage.module.css";
 import LorbyGreeting from "../../components/LorbyGreeting/LorbyGreeting";
-import { logInAPI } from "../../api/api";
+/* import { logInAPI } from "../../api/api"; */
 
 interface IValues {
   username: string;

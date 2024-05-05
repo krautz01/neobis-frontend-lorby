@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { userProfileAPI, logInAPI } from "../../api/api.ts";
+/* import { userProfileAPI, logInAPI } from "../../api/api.ts"; */
 
 interface IUser {
   isAuth: boolean;
@@ -18,13 +18,13 @@ const initialState: IUser = {
   refreshToken: "",
 };
 
-export const fetchLogIn = createAsyncThunk(
+/* export const fetchLogIn = createAsyncThunk(
   "userData/logIn",
   async (data: ILogIn, thunkAPI) => {
     const response = await logInAPI(data);
     return response.data;
   }
-);
+); */
 
 const authSlice = createSlice({
   name: "userData",
@@ -34,7 +34,7 @@ const authSlice = createSlice({
       state.isAuth = false;
     },
   },
-  extraReducers: (builder) => {
+ /*  extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchLogIn.fulfilled, (state, action) => {
       // Add user to the state array
@@ -46,7 +46,7 @@ const authSlice = createSlice({
       }
       state.isAuth = true;
     });
-  },
+  }, */
 });
 
 export const { logOut } = authSlice.actions;
