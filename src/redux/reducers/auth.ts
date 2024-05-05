@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 /* import { userProfileAPI, logInAPI } from "../../api/api.ts"; */
 
 interface IUser {
@@ -7,10 +7,10 @@ interface IUser {
   refreshToken: string;
 }
 
-interface ILogIn {
+/* nterface ILogIn {
   username: string;
   password: string;
-}
+} */
 
 const initialState: IUser = {
   isAuth: false,
