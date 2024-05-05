@@ -1,0 +1,54 @@
+.registrPage {
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.registrPage_form_block {
+  width: 21.4375rem;
+  text-align: center;
+  color: #767676;
+}
+
+.registrPage_form_block h2{
+    margin-bottom: 3.125rem;
+    line-height: 3rem;
+    color: #212121;
+
+}
+
+.registrPage_form_block button {
+    margin-top: 1rem;
+    background: #D7D7D7;
+    color: #767676;
+}
+
+.registrPage_form_block form {
+  display: flex;
+  height: 25.625rem;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.registrPage_form_password_block {
+  width: 100%;
+  border-radius: 12px;
+  background: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.registrPage_form_password_block :nth-child(1) {
+  width: 90%;
+}
+
+.registrPage_form_password_block img {
+  width: 21.33px;
+  height: 14.85px;
+}

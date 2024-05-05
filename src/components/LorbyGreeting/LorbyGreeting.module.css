@@ -1,0 +1,17 @@
+.lorby_greeting {
+    width: 50%;
+    height: 42rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .lorby_greeting img {
+    width: 480px;
+    height: 510px;
+    margin-bottom: 4rem;
+  }
+  
+  .lorby_greeting h1 {
+    margin-bottom: 3rem;
+  }
